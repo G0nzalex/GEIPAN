@@ -53,6 +53,6 @@ class Registration
     }
     public function endofForm() : string
     {
-        return $this->endofForm = "</form>";
+        return $this->endofForm = "<input type=\"submit\" name=\"registration\" id=\"registration\">" . "</form>";
     }
 }
