@@ -2,11 +2,13 @@
 
 class Query
 {
-    private string $serverName = "localhost";
-    private string $userName = "root";
-    private string $database = "geipan";
-    private string $userPassword = "";
-    private object $connexion;
+    use Errors;
+
+    protected string $serverName = "localhost";
+    protected string $userName = "root";
+    protected string $database = "geipan";
+    protected string $userPassword = "";
+    protected object $connexion;
 
     public function __construct()
     {
@@ -18,7 +20,32 @@ class Query
             die("Erreur :  " . $e->getMessage());
         }
     }
-
+    public function select($sql)
+    {
+            try{            
+                $query = $this->connexion->prepare($sql);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_OBJ);
+    
+    
+                return $result;
+            }
+            catch(PDOException $e){
+                die("Erreur :  " . $e->getMessage());
+            }
+    }
+    public function insertion($sql)
+    {
+        try{
+            $this->connexion->beginTransaction();
+            $this->connexion->exec($sql);
+            $this->connexion->commit();
+        }
+        catch(PDOException $e){
+            $this->connexion->rollBack();
+            die("Erreur :  " . $e->getMessage());
+        }
+    }
     public function __destruct()
     {
         unset($this->connexion);        
