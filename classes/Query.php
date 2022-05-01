@@ -20,7 +20,7 @@ class Query
             die("Erreur :  " . $e->getMessage());
         }
     }
-    public function select($sql)
+    public function select($sql) : array
     {
             try{            
                 $query = $this->connexion->prepare($sql);
@@ -34,7 +34,7 @@ class Query
                 die("Erreur :  " . $e->getMessage());
             }
     }
-    public function insertion($sql)
+    public function insert($sql) : void
     {
         try{
             $this->connexion->beginTransaction();
