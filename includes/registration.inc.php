@@ -3,14 +3,15 @@
 $registration = new Registration;
 $registrationTreatment = new RegistrationTreatment;
 $query = new Query;
+$date;
 
-echo $registration->form();
+echo $registration->form("registration");
 echo $registration->name();
 echo $registration->firstName();
 echo $registration->pp();
 echo $registration->email();
 echo $registration->password();
-echo $registration->endofForm();
+echo $registration->endofForm("registration");
 
 $err = [];
 
@@ -25,9 +26,6 @@ if (isset($_POST['registration']))
     $firstname = $registrationTreatment->getFirstName();
     $errMsg = $registrationTreatment->errMsg($firstname, "<p>There is an issue with the first name you typed, please try again</p>");
     $registrationTreatment->errCount($err, $errMsg);
-    // $registrationTreatment->setName($_POST['name']);
-    // $name = $registrationTreatment->getName();
-    // echo $errMsg = $registrationTreatment->errMsg($name, "There is an issue with the name you typed, please try again");
 
     $registrationTreatment->setEmail($_POST['email']);
     $email = $registrationTreatment->getEmail();
@@ -39,14 +37,20 @@ if (isset($_POST['registration']))
     $errMsg = $registrationTreatment->errMsg($password, "<p>There is an issue with the password you typed, please try again</p>");
     $registrationTreatment->errCount($err, $errMsg);
 
+    $registrationTreatment->setpp("http://localhost/GEIPAN/assets/img", $_FILES['pp']['name']);
+    $image = $registrationTreatment->getpp();
+    
+
+    $date = date("YmdHis");
+    dumps($_FILES);
     if (count($err) === 0)
     {
         $result = $query->select("SELECT * FROM users WHERE userName= \"$name\"");
         if (count($result) === 0)
         {
             $role = 2;
-            $query->insert("INSERT INTO users (userName, userFirstname, userMail, userPassword, id_role)
-            VALUES (\"$name\", \"$firstname\", \"$email\", \"$password\", \"$role\")
+            $query->insert("INSERT INTO users (userName, userFirstname, userMail, userPassword, userDate, userAvatar, id_role)
+            VALUES (\"$name\", \"$firstname\", \"$email\", \"$password\", \"$date\", \"$image\", \"$role\")
             ");
             echo $success = "<p>Insertion succesful !</p>";
         }
