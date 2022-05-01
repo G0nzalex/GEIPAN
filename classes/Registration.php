@@ -12,9 +12,9 @@ class Registration
     // {
         
     // }
-    public function form() : string
+    public function form($page) : string
     {
-        return $this->form = "<form action=\"index.php?page=registration\" method=\"post\" enctype=\"multipart/form-data\">";
+        return $this->form = "<form action=\"index.php?page=$page\" method=\"post\" enctype=\"multipart/form-data\">";
     }    
     public function name() : string
     {
@@ -51,8 +51,8 @@ class Registration
 
         return $this->password;
     }
-    public function endofForm() : string
+    public function endofForm($page) : string
     {
-        return $this->endofForm = "<input type=\"submit\" name=\"registration\" id=\"registration\">" . "</form>";
+        return $this->endofForm = "<input type=\"submit\" name=\"$page\" id=\"$page\">" . "</form>";
     }
 }
