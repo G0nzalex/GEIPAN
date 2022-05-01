@@ -2,7 +2,6 @@
 
 class Query
 {
-    use Errors;
 
     protected string $serverName = "localhost";
     protected string $userName = "root";
@@ -20,7 +19,7 @@ class Query
             die("Erreur :  " . $e->getMessage());
         }
     }
-    public function select($sql) : array
+    public function select(string $sql) : array
     {
             try{            
                 $query = $this->connexion->prepare($sql);
@@ -34,7 +33,7 @@ class Query
                 die("Erreur :  " . $e->getMessage());
             }
     }
-    public function insert($sql) : void
+    public function insert(string $sql) : void
     {
         try{
             $this->connexion->beginTransaction();
