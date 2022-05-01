@@ -8,11 +8,8 @@ class RegistrationTreatment
     private string $email;
     private string $password;
     private string $pp;
-
-    // public function __construct()
-    // {
-    //     $this->password = password_hash($this->password, PASSWORD_DEFAULT);
-    // }
+    // private string $path;
+    private string $date;
     
     public function getName() : string
     {
@@ -49,10 +46,19 @@ class RegistrationTreatment
     }
     public function getpp() : string
     {
-        return !isset($this->pp) || strlen($this->pp) === 0 ? $this->pp = "" : $this->pp;
+        return isset($_FILES['pp']) && $_FILES['pp']['error'] == 0 ? $this->pp : $this->pp = "";
     }
-    public function setpp(string $pp) : void
+    public function setpp(string $path, string $pp) : void
     {
-        $this->pp = $pp;
+        $this->pp = $path . "/" . $pp;
+    }
+    public function setDate($date) : void
+    {
+        $this->date = date("Ymdhis");
+        $this->date = $date;
+    }
+    public function getDate() : string
+    {
+        return $this->date;
     }
 }
