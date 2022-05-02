@@ -32,7 +32,7 @@ if (isset($_POST['registration']))
     $errMsg = $registrationTreatment->errMsg($email, "<p>There is an issue with the email you typed, please try again</p>");
     $registrationTreatment->errCount($err, $errMsg);
 
-    $registrationTreatment->setPassword($_POST['password']);
+    $registrationTreatment->setPasswordHash($_POST['password']);
     $password = $registrationTreatment->getPassword();
     $errMsg = $registrationTreatment->errMsg($password, "<p>There is an issue with the password you typed, please try again</p>");
     $registrationTreatment->errCount($err, $errMsg);
