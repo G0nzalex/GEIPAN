@@ -42,6 +42,10 @@ class RegistrationTreatment
     }
     public function setPassword(string $password) : void
     {
+        $this->password = $password;
+    }
+    public function setPasswordHash(string $password) : void
+    {
         $this->password = password_hash($password, PASSWORD_DEFAULT);
     }
     public function getpp() : string
