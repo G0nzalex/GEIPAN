@@ -56,13 +56,4 @@ class RegistrationTreatment
     {
         $this->pp = $path . "/" . $pp;
     }
-    public function setDate($date) : void
-    {
-        $this->date = date("Ymdhis");
-        $this->date = $date;
-    }
-    public function getDate() : string
-    {
-        return $this->date;
-    }
 }
