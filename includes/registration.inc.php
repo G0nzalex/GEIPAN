@@ -1,46 +1,46 @@
 <?php
 
 $registration = new Registration;
-$registrationTreatment = new RegistrationTreatment;
 $query = new Query;
 $enctype = "enctype=\"multipart/form-data\"";
 $date;
+$inputs = [ 
+    $registration->form("registration", $enctype),
+    $registration->name(),
+    $registration->firstName(),
+    $registration->pp(),
+    $registration->email(),
+    $registration->password(),
+    $registration->endofForm("registration")
+];
 
-echo $registration->form("registration", $enctype);
-echo $registration->name();
-echo $registration->firstName();
-echo $registration->pp();
-echo $registration->email();
-echo $registration->password();
-echo $registration->endofForm("registration");
-
+$registration->display($inputs, "<br />");
 $err = [];
 
 if (isset($_POST['registration']))
 {
-    $registrationTreatment->setName($_POST['name']);
-    $name = $registrationTreatment->getName();
-    $errMsg = $registrationTreatment->errMsg($name, "<p>There is an issue with the name you typed, please try again</p>");
-    $registrationTreatment->errCount($err, $errMsg);
+    $registration->setName($_POST['name']);
+    $name = $registration->getName();
+    $errMsg = $registration->errMsg($name, "<p>There is an issue with the name you typed, please try again</p>");
+    $registration->errCount($err, $errMsg);
 
-    $registrationTreatment->setFirstName($_POST['firstname']);
-    $firstname = $registrationTreatment->getFirstName();
-    $errMsg = $registrationTreatment->errMsg($firstname, "<p>There is an issue with the first name you typed, please try again</p>");
-    $registrationTreatment->errCount($err, $errMsg);
+    $registration->setFirstName($_POST['firstname']);
+    $firstname = $registration->getFirstName();
+    $errMsg = $registration->errMsg($firstname, "<p>There is an issue with the first name you typed, please try again</p>");
+    $registration->errCount($err, $errMsg);
 
-    $registrationTreatment->setEmail($_POST['email']);
-    $email = $registrationTreatment->getEmail();
-    $errMsg = $registrationTreatment->errMsg($email, "<p>There is an issue with the email you typed, please try again</p>");
-    $registrationTreatment->errCount($err, $errMsg);
+    $registration->setEmail($_POST['email']);
+    $email = $registration->getEmail();
+    $errMsg = $registration->errMsg($email, "<p>There is an issue with the email you typed, please try again</p>");
+    $registration->errCount($err, $errMsg);
 
-    $registrationTreatment->setPasswordHash($_POST['password']);
-    $password = $registrationTreatment->getPassword();
-    $errMsg = $registrationTreatment->errMsg($password, "<p>There is an issue with the password you typed, please try again</p>");
-    $registrationTreatment->errCount($err, $errMsg);
+    $registration->setPassword($_POST['password']);
+    $password = $registration->getPasswordHash();
+    $errMsg = $registration->errMsg($password, "<p>There is an issue with the password you typed, please try again</p>");
+    $registration->errCount($err, $errMsg);
 
-    $registrationTreatment->setpp("http://localhost/GEIPAN/assets/img", $_FILES['pp']['name']);
-    $image = $registrationTreatment->getpp();
-    
+    $registration->setpp("http://localhost/GEIPAN/assets/img", $_FILES['pp']['name']);
+    $image = $registration->getpp();
 
     $date = date("YmdHis");
     if (count($err) === 0)
