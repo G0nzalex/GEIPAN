@@ -2,20 +2,13 @@
 
 class Registration
 {
+    use Form;
     private string $name;
     private string $firstName;
     private string $email;
     private string $password;
     private string $pp;
-
-    // public function __construct()
-    // {
-        
-    // }
-    public function form($page) : string
-    {
-        return $this->form = "<form action=\"index.php?page=$page\" method=\"post\" enctype=\"multipart/form-data\">";
-    }    
+ 
     public function name() : string
     {
         $this->name = "<label for=\"name\">Your name : </label>";
@@ -50,9 +43,5 @@ class Registration
         $this->password .= "<input type=\"password\" name=\"password\" id=\"password\">";
 
         return $this->password;
-    }
-    public function endofForm($page) : string
-    {
-        return $this->endofForm = "<input type=\"submit\" name=\"$page\" id=\"$page\">" . "</form>";
     }
 }
