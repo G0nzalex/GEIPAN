@@ -3,9 +3,10 @@
 $registration = new Registration;
 $registrationTreatment = new RegistrationTreatment;
 $query = new Query;
+$enctype = "enctype=\"multipart/form-data\"";
 $date;
 
-echo $registration->form("registration");
+echo $registration->form("registration", $enctype);
 echo $registration->name();
 echo $registration->firstName();
 echo $registration->pp();
@@ -42,7 +43,6 @@ if (isset($_POST['registration']))
     
 
     $date = date("YmdHis");
-    dumps($_FILES);
     if (count($err) === 0)
     {
         $result = $query->select("SELECT * FROM users WHERE userName= \"$name\"");
