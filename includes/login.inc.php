@@ -1,7 +1,6 @@
 <?php
 
 $login = new Registration;
-$loginTreatment = new RegistrationTreatment;
 $query = new Query;
 
 echo $login->form("login");
@@ -13,15 +12,15 @@ if(isset($_POST['login']))
 {
     $err = [];
 
-    $loginTreatment->setEmail($_POST['email']);
-    $email = $loginTreatment->getEmail();
-    $errMsg = $loginTreatment->errMsg($email, "<p>There is an issue with the email you typed, please try again</p>");
-    $loginTreatment->errCount($err, $errMsg);
+    $login->setEmail($_POST['email']);
+    $email = $login->getEmail();
+    $errMsg = $login->errMsg($email, "<p>There is an issue with the email you typed, please try again</p>");
+    $login->errCount($err, $errMsg);
 
-    $loginTreatment->setPassword($_POST['password']);
-    $password = $loginTreatment->getPassword();
-    $errMsg = $loginTreatment->errMsg($password, "<p>There is an issue with the password you typed, please try again</p>");
-    $loginTreatment->errCount($err, $errMsg);
+    $login->setPassword($_POST['password']);
+    $password = $login->getPassword();
+    $errMsg = $login->errMsg($password, "<p>There is an issue with the password you typed, please try again</p>");
+    $login->errCount($err, $errMsg);
 
     if (count($err) === 0)
     {
