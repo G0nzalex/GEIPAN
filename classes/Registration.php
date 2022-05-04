@@ -83,9 +83,6 @@ class Registration
     {
         $this->password = $password;
     }
-    // public function passwordHash(string $password) : void
-    // {
-    //     $this->password = password_hash($password, PASSWORD_DEFAULT);
     // }
     public function getpp() : string
     {
