@@ -39,8 +39,9 @@ if (isset($_POST['registration']))
     $errMsg = $registration->errMsg($password, "<p>There is an issue with the password you typed, please try again</p>");
     $registration->errCount($err, $errMsg);
 
-    $registration->setpp("http://localhost/GEIPAN/assets/img", $_FILES['pp']['name']);
-    $image = $registration->getpp();
+    $registration->setpp($_FILES['pp']['name']);
+    echo $image = $registration->getpp("http://localhost/GEIPAN/assets/img/");
+    dumps($image);
 
     $date = date("YmdHis");
     if (count($err) === 0)

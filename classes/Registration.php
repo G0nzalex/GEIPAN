@@ -7,7 +7,7 @@ class Registration
     private string $firstName;
     private string $email;
     private string $password;
-    private string $pp;
+    private string $tempFileName;
 
     // Inputs
     public function name() : string
@@ -84,13 +84,70 @@ class Registration
         $this->password = $password;
     }
     // }
-    public function getpp() : string
+    public function getpp(string $path) : mixed
     {
-        return isset($_FILES['pp']) && $_FILES['pp']['error'] == 0 ? $this->pp : $this->pp = "";
+        if (isset($_FILES['pp'])) //$_FILES['pp']['name'] !== ""
+        { 
+            if ($_FILES['pp']['error'] == 0)
+            {
+                $fileName = mb_strtolower($_FILES['pp']['name']);
+                $fileType = $_FILES['pp']['type'];
+                
+
+                $mime = array("image/jpeg", "image/jpg", "image/png", "image/gif");
+
+                if (in_array($fileType, $mime)) {
+                    $absolutePath = $path;
+                    // $cheminRelatif = getcwd() . "/assets/img/";
+                    // $dateFichier = date('Ymdhis');
+                    $this->pp = $absolutePath . $fileName;
+                    $this->pp = str_replace("\\", "/", $this->pp);
+                    return $this->pp;
+                } 
+                else {
+                    return "<p>Type MIME error !</p>";
+                }
+            } 
+            else
+            {
+                $errTel = $_FILES['pp']['error'];
+                var_dump($errTel);
+                switch ($errTel) 
+                {
+                    case 1:
+                        $errFile = "La taille du fichier téléchargé excède la valeur de upload_max_filesize.";
+                        break;
+                    case 2:
+                        $errFile = "La taille du fichier téléchargé excède la valeur de MAX_FILE_SIZE, qui a été spécifiée dans le formulaire HTML.";
+                        break;
+                    case 3:
+                        $errFile = "Le fichier n'a été que partiellement téléchargé.";
+                        break;
+                    case 4:
+                        $errFile = "Aucun fichier n'a été téléchargé.";
+                        break;
+                    case 6:
+                        $errFile = "Un dossier temporaire est manquant.";
+                        break;
+                    case 7:
+                        $errFile = "Échec de l'écriture du fichier sur le disque.";
+                        break;
+                    case 8:
+                        $errFile = "Une extension PHP a arrêté l'envoi de fichier.";
+                        break;
+                }
+                return $errFile;
+            }
+        }
+        else
+        {
+            return "<p>You have to upload an image</p>";
+        }
+        // return isset($_FILES['pp']) && $_FILES['pp']['error'] == 0 ? $this->pp : $this->pp = "";
     }
-    public function setpp(string $path, string $pp) : void
+    public function setpp(string $path) : void
     {
-        $this->pp = $path . "/" . $pp;
+        $this->pp = $path;
     }
     
 }
