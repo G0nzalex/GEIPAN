@@ -7,7 +7,8 @@ class Registration
     private string $firstName;
     private string $email;
     private string $password;
-    private string $tempFileName;
+    private string $pp;
+    private array $storedFile;
 
     // Inputs
     public function name() : string
@@ -92,17 +93,22 @@ class Registration
             {
                 $fileName = mb_strtolower($_FILES['pp']['name']);
                 $fileType = $_FILES['pp']['type'];
+                $tempFileName = $_FILES['pp']['tmp_name'];
                 
 
-                $mime = array("image/jpeg", "image/jpg", "image/png", "image/gif");
+                $mime = ["image/jpeg", "image/jpg", "image/png", "image/gif"];
 
                 if (in_array($fileType, $mime)) {
                     $absolutePath = $path;
-                    // $cheminRelatif = getcwd() . "/assets/img/";
+                    $relativePath = getcwd() . "/assets/img/";
                     // $dateFichier = date('Ymdhis');
-                    $this->pp = $absolutePath . $fileName;
-                    $this->pp = str_replace("\\", "/", $this->pp);
-                    return $this->pp;
+                    $finalFileName = $absolutePath . $fileName;
+                    $to = $relativePath . $fileName;
+                    
+                    $this->storedFile = [$finalFileName, $tempFileName, $to];
+                    // $this->pp = $absolutePath . $fileName;
+                    // $this->pp = str_replace("\\", "/", $this->pp);
+                    return $this->storedFile;
                 } 
                 else {
                     return "<p>Type MIME error !</p>";

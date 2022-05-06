@@ -40,8 +40,7 @@ if (isset($_POST['registration']))
     $registration->errCount($err, $errMsg);
 
     $registration->setpp($_FILES['pp']['name']);
-    echo $image = $registration->getpp("http://localhost/GEIPAN/assets/img/");
-    dumps($image);
+    $image = $registration->getpp("http://localhost/GEIPAN/assets/img/");
 
     $date = date("YmdHis");
     if (count($err) === 0)
@@ -51,9 +50,10 @@ if (isset($_POST['registration']))
         {
             $role = 2;
             $query->insert("INSERT INTO users (userName, userFirstname, userMail, userPassword, userDate, userAvatar, id_role)
-            VALUES (\"$name\", \"$firstname\", \"$email\", \"$password\", \"$date\", \"$image\", \"$role\")
+            VALUES (\"$name\", \"$firstname\", \"$email\", \"$password\", \"$date\", \"$image[0]\", \"$role\")
             ");
             echo $success = "<p>Insertion succesful !</p>";
+            move_uploaded_file($image[1], $image[2]);
         }
         else
         {
