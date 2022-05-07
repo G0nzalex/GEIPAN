@@ -21,7 +21,7 @@ class Events
     public function duration() : string
     {
         $this->duration = "<label for=\"duration\">How long did the event last ? </label>";
-        $this->duration .= "<input type=\"range\" id=\"duration\" name=\"duration\" min=\"0\" max=\"60\"";
+        $this->duration .= "<input type=\"range\" id=\"duration\" name=\"duration\" min=\"0\" max=\"60\">";
         $this->duration .= "<p id=\"value\"></p>";
         $this->duration .= "<script>const input = document.getElementById('duration');
         const log = document.getElementById('value');
@@ -29,7 +29,7 @@ class Events
         input.addEventListener('input', updateValue);
         
         function updateValue(e) {
-          log.textContent = e.target.value;
+            log.textContent = e.target.value + ' min';
         }";
         $this->duration .= "</script>";
         return $this->duration;
