@@ -6,6 +6,7 @@ class Events extends Query
 
     private string $datetime;
     private string $duration;
+    private string $state;
     private string $place;
     private string $direction;
     private string $weather;
@@ -34,21 +35,27 @@ class Events extends Query
         $this->duration .= "</script>";
         return $this->duration;
     }
-    public function place() : string
+    public function state() : string
     {
         $result = $this->select("SELECT * FROM departement");
-        $this->place = "<label for=\"selection\">From where did you see the event ?</label>";
-        $this->place .= "<select name=\"selection\" id=\"selection\">";
-        $this->place .= "<option value=\"/\" selected>Please choose...</option>";
+        $this->state = "<label for=\"state\">From where did you see the event ?</label>";
+        $this->state .= "<select name=\"state\" id=\"state\">";
+        $this->state .= "<option value=\"/\" selected>Please choose...</option>";
         for ($i = 0; $i < count($result); $i++)
         {
-            $this->place .= "<option value=\"";
-            $this->place .= $result[$i]->departement_id;
-            $this->place .= "\">";
-            $this->place .= $result[$i]->departement_code . " " . $result[$i]->departement_nom;
-            $this->place .= "</option>";
+            $this->state .= "<option value=\"";
+            $this->state .= $result[$i]->departement_id;
+            $this->state .= "\">";
+            $this->state .= $result[$i]->departement_code . " " . $result[$i]->departement_nom;
+            $this->state .= "</option>";
         }
-        $this->place .= "</select>";
+        $this->state .= "</select>";
+        return $this->state;
+    }
+    public function place() : string
+    {
+        $this->place = "<label for=\"place\">Name the city where the event happened... </label>";
+        $this->place .= "<input type=\"text\" name=\"place\" id=\"place\">";
         return $this->place;
     }
     public function direction() : string
@@ -84,5 +91,67 @@ class Events extends Query
         }
         $this->weather .= "</select>";
         return $this->weather;
+    }
+    public function description() : string
+    {
+        $this->description = "<label for=\"description\">Give a description about the event : </label>";
+        $this->description .= "<textarea name=\"description\" id=\"description\"></textarea>";
+        return $this->description;
+    }
+    public function getDatetime() : string
+    {
+        return !isset($this->datetime) || strlen($this->datetime) === 0 ? $this->datetime = "" : $this->datetime;
+    }
+    public function setDatetime(string $datetime) : void
+    {
+        $this->datetime = $datetime;
+    }
+    public function getDuration() : string
+    {
+        return !isset($this->duration) || strlen($this->duration) === 0 ? $this->duration = "" : $this->duration;
+    }
+    public function setDuration(string $duration) : void
+    {
+        $this->duration = $duration;
+    }
+    public function getState() : string
+    {
+        return !isset($this->state) || strlen($this->state) === 0 ? $this->state = "" : $this->state;
+    }
+    public function setState(string $state) : void
+    {
+        $this->state = $state;
+    }
+    public function getPlace() : string
+    {
+        return !isset($this->place) || strlen($this->place) === 0 ? $this->place = "" : $this->place;
+    }
+    public function setPlace(string $place) : void
+    {
+        $this->place = $place;
+    }
+    public function getDirection() : string
+    {
+        return !isset($this->direction) || strlen($this->direction) === 0 ? $this->direction = "" : $this->direction;
+    }
+    public function setDirection(string $direction) : void
+    {
+        $this->direction = $direction;
+    }
+    public function getWeather() : string
+    {
+        return !isset($this->weather) || strlen($this->weather) === 0 ? $this->weather = "" : $this->weather;
+    }
+    public function setWeather(string $weather) : void
+    {
+        $this->weather = $weather;
+    }
+    public function getDescription() : string
+    {
+        return !isset($this->description) || strlen($this->description) === 0 ? $this->description = "" : $this->description;
+    }
+    public function setDescription(string $description) : void
+    {
+        $this->description = $description;
     }
 }
