@@ -21,7 +21,7 @@ class Events extends Query
     public function duration() : string
     {
         $this->duration = "<label for=\"duration\">How long did the event last ? </label>";
-        $this->duration .= "<input type=\"range\" id=\"duration\" name=\"duration\" min=\"0\" max=\"60\">";
+        $this->duration .= "<input type=\"range\" id=\"duration\" name=\"duration\" min=\"0\" max=\"60\" step=\"5\">";
         $this->duration .= "<p id=\"value\"></p>";
         $this->duration .= "<script>const input = document.getElementById('duration');
         const log = document.getElementById('value');
@@ -37,7 +37,8 @@ class Events extends Query
     public function place() : string
     {
         $result = $this->select("SELECT * FROM departement");
-        $this->place = "<select name=\"selection\" id=\"selection\">";
+        $this->place = "<label for=\"selection\">From where did you see the event ?</label>";
+        $this->place .= "<select name=\"selection\" id=\"selection\">";
         $this->place .= "<option value=\"/\" selected>Please choose...</option>";
         for ($i = 0; $i < count($result); $i++)
         {
@@ -50,5 +51,38 @@ class Events extends Query
         $this->place .= "</select>";
         return $this->place;
     }
-    
+    public function direction() : string
+    {
+        $dir = ["North", "North-East", "East", "South-East", "South", "South-West", "West", "North-West"];
+        $this->direction = "<label for=\"direction\">At what direction did you see the event ?</label>";
+        $this->direction .= "<select name=\"direction\" id=\"direction\">";
+        $this->direction .= "<option value=\"/\" selected>Please choose...</option>";
+        for ($i = 0; $i < count($dir); $i++)
+        {
+            $this->direction .= "<option value=\"";
+            $this->direction .= $dir[$i];
+            $this->direction .= "\">";
+            $this->direction .= $dir[$i];
+            $this->direction .= "</option>";
+        }
+        $this->direction .= "</select>";
+        return $this->direction;
+    }
+    public function weather() : string
+    {
+        $wth = ["Sunny", "Cloudy", "Raining", "Storming", "Foggy", "Snowing"];
+        $this->weather = "<label for=\"weather\">It was ...</label>";
+        $this->weather .= "<select name=\"weather\" id=\"weather\">";
+        $this->weather .= "<option value=\"/\" selected>Please choose...</option>";
+        for ($i = 0; $i < count($wth); $i++)
+        {
+            $this->weather .= "<option value=\"";
+            $this->weather .= $wth[$i];
+            $this->weather .= "\">";
+            $this->weather .= $wth[$i];
+            $this->weather .= "</option>";
+        }
+        $this->weather .= "</select>";
+        return $this->weather;
+    }
 }
