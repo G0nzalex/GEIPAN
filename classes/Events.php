@@ -1,6 +1,6 @@
 <?php
 
-class Events
+class Events extends Query
 {
     use Form;
 
@@ -34,4 +34,21 @@ class Events
         $this->duration .= "</script>";
         return $this->duration;
     }
+    public function place() : string
+    {
+        $result = $this->select("SELECT * FROM departement");
+        $this->place = "<select name=\"selection\" id=\"selection\">";
+        $this->place .= "<option value=\"/\" selected>Please choose...</option>";
+        for ($i = 0; $i < count($result); $i++)
+        {
+            $this->place .= "<option value=\"";
+            $this->place .= $result[$i]->departement_id;
+            $this->place .= "\">";
+            $this->place .= $result[$i]->departement_code . " " . $result[$i]->departement_nom;
+            $this->place .= "</option>";
+        }
+        $this->place .= "</select>";
+        return $this->place;
+    }
+    
 }
